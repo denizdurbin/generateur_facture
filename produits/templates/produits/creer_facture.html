@@ -1,0 +1,8 @@
+<h1>Créer une facture</h1>
+<form method="POST">
+  {% csrf_token %}
+  {% for produit in produits %}
+    <input type="checkbox" name="produits" value="{{ produit.id }}"> {{ produit.nom }} - {{ produit.prix }} €<br>
+  {% endfor %}
+  <button type="submit">Générer</button>
+</form>

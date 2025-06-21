@@ -1,0 +1,8 @@
+<h1>Détail de la facture {{ facture.id }}</h1>
+<p>Date : {{ facture.date }}</p>
+<ul>
+  {% for produit in facture.produits.all %}
+    <li>{{ produit.nom }} - {{ produit.prix }} €</li>
+  {% endfor %}
+</ul>
+<p><strong>Total :</strong> {{ facture.total }} €</p>

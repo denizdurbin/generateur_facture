@@ -1,0 +1,18 @@
+<h1>Liste des produits</h1>
+<ul>
+  {% for produit in produits %}
+    <li>{{ produit.nom }} - {{ produit.prix }} € - expire le {{ produit.date_peremption }}</li>
+  {% endfor %}
+</ul>
+
+<div>
+  {% if produits.has_previous %}
+    <a href="?page={{ produits.previous_page_number }}">Page précédente</a>
+  {% endif %}
+
+  Page {{ produits.number }} / {{ produits.paginator.num_pages }}
+
+  {% if produits.has_next %}
+    <a href="?page={{ produits.next_page_number }}">Page suivante</a>
+  {% endif %}
+</div>
