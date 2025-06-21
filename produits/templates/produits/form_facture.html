@@ -4,12 +4,6 @@
   <h1>Créer une facture</h1>
   <form method="POST">
     {% csrf_token %}
-    
-    <div class="form-check mb-2">
-      <input type="checkbox" class="form-check-input" id="select-all">
-      <label class="form-check-label fw-bold" for="select-all">Tout sélectionner</label>
-    </div>
-
     {% for produit in produits %}
       <div class="form-check">
         <input class="form-check-input" type="checkbox" name="produits" value="{{ produit.id }}" id="produit_{{ produit.id }}">
@@ -18,16 +12,6 @@
         </label>
       </div>
     {% endfor %}
-
     <button type="submit" class="btn btn-success mt-3">Générer</button>
   </form>
-
-  <script>
-    const selectAll = document.getElementById('select-all');
-    const checkboxes = document.querySelectorAll('input[name="produits"]');
-
-    selectAll.addEventListener('change', function () {
-      checkboxes.forEach(cb => cb.checked = this.checked);
-    });
-  </script>
 {% endblock %}

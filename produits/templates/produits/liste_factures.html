@@ -1,0 +1,14 @@
+{% extends 'produits/base.html' %}
+{% block content %}
+  <h2>Liste des factures</h2>
+  <ul class="list-group">
+    {% for facture in factures %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a href="{% url 'detail_facture' facture.id %}">Facture #{{ facture.id }}</a>
+        <span>{{ facture.total }} €</span>
+      </li>
+    {% empty %}
+      <li class="list-group-item">Aucune facture.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,16 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Produit, Facture
+from .forms import ProduitForm
 from django.core.paginator import Paginator
 
 produits_per_page = 10
 
 def liste_produits(request):
-    print("debug")
     produits = Produit.objects.all()
     paginator = Paginator(produits, produits_per_page)
     page = request.GET.get('page')
     produits_page = paginator.get_page(page)
-    return render(request, 'produits/liste.html', {'produits': produits_page})
+    return render(request, 'produits/liste_produits.html', {'produits': produits_page})
 
 def creer_facture(request):
     if request.method == 'POST':
@@ -22,5 +22,31 @@ def creer_facture(request):
     return render(request, 'produits/creer_facture.html', {'produits': produits})
 
 def detail_facture(request, id):
-    facture = Facture.objects.get(id=id)
+    facture = get_object_or_404(Facture, id=id)
     return render(request, 'produits/detail_facture.html', {'facture': facture})
+
+def creer_produit(request):
+    form = ProduitForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('liste_produits')
+    return render(request, 'produits/form_produit.html', {'form': form})
+
+def modifier_produit(request, pk):
+    produit = get_object_or_404(Produit, pk=pk)
+    form = ProduitForm(request.POST or None, instance=produit)
+    if form.is_valid():
+        form.save()
+        return redirect('liste_produits')
+    return render(request, 'produits/form_produit.html', {'form': form})
+
+def supprimer_produit(request, pk):
+    produit = get_object_or_404(Produit, pk=pk)
+    if request.method == 'POST':
+        produit.delete()
+        return redirect('liste_produits')
+    return render(request, 'produits/confirm_supprimer.html', {'produit': produit})
+
+def liste_factures(request):
+    factures = Facture.objects.all()
+    return render(request, 'produits/liste_factures.html', {'factures': factures})
