@@ -2,7 +2,7 @@
 {% block title %}Créer une facture{% endblock %}
 {% block content %}
   <h1>Créer une facture</h1>
-  <form method="POST">
+  <form method="post">
     {% csrf_token %}
     {% for produit in produits %}
       <div class="form-check">

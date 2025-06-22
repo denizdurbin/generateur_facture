@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Produit, Facture
+from .models import Produit, Facture, LigneFacture
 from .forms import ProduitForm
 from django.core.paginator import Paginator
 
@@ -16,10 +16,17 @@ def creer_facture(request):
     if request.method == 'POST':
         ids = request.POST.getlist('produits')
         facture = Facture.objects.create()
-        facture.produits.set(ids)
+        for produit_id in ids:
+            produit = Produit.objects.get(id=produit_id)
+            LigneFacture.objects.create(
+                facture=facture,
+                produit=produit,
+                prix_unitaire=produit.prix
+            )
         return redirect('detail_facture', id=facture.id)
     produits = Produit.objects.all()
     return render(request, 'produits/creer_facture.html', {'produits': produits})
+
 
 def detail_facture(request, id):
     facture = get_object_or_404(Facture, id=id)
@@ -50,3 +57,10 @@ def supprimer_produit(request, pk):
 def liste_factures(request):
     factures = Facture.objects.all()
     return render(request, 'produits/liste_factures.html', {'factures': factures})
+
+def supprimer_facture(request, pk):
+    facture = get_object_or_404(Facture, pk=pk)
+    if request.method == 'POST':
+        facture.delete()
+        return redirect('liste_factures')
+    return render(request, 'produits/confirm_supprimer_facture.html', {'facture': facture})

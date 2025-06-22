@@ -5,8 +5,12 @@
     {% for facture in factures %}
       <li class="list-group-item d-flex justify-content-between align-items-center">
         <a href="{% url 'detail_facture' facture.id %}">Facture #{{ facture.id }}</a>
-        <span>{{ facture.total }} €</span>
+        <div>
+          <span>{{ facture.total }} €</span>
+          <a href="{% url 'supprimer_facture' facture.id %}" class="btn btn-sm btn-danger ms-3">Supprimer</a>
+        </div>
       </li>
+
     {% empty %}
       <li class="list-group-item">Aucune facture.</li>
     {% endfor %}
