@@ -43,20 +43,22 @@ Des captures d’écran de l’application sont disponibles dans le dossier [`sc
 
 Voici un aperçu de l’organisation des fichiers principaux :
 
+```text
 generateur_facture/
-├── generateur_facture/ # Répertoire principal du projet Django
-│ ├── settings.py # Configuration du projet
-│ ├── urls.py # Routeur principal
-│ └── wsgi.py # Point d'entrée du serveur
-├── produits/ # Application Django "produits"
-│ ├── migrations/ # Fichiers de migration de la base de données
-│ ├── templates/produits/ # Templates HTML spécifiques à l'app produits
-│ ├── forms.py # Formulaires Django
-│ ├── models.py # Modèles de données
-│ ├── views.py # Vues Django
-│ ├── urls.py # Routes spécifiques à l'app produits
-│ └── tests.py # Tests unitaires
-├── db.sqlite3 # Base de données SQLite (générée)
-├── manage.py # Script de gestion du projet
-└── requirements.txt # Liste des dépendances Python (générée automatiquement avec pip freeze > requirements.txt)
+├── generateur_facture/          # Répertoire principal du projet Django
+│   ├── settings.py              # Configuration du projet
+│   ├── urls.py                  # Routeur principal
+│   └── wsgi.py                  # Point d'entrée du serveur
+├── produits/                   # Application Django "produits"
+│   ├── migrations/             # Fichiers de migration de la base de données
+│   ├── templates/produits/     # Templates HTML spécifiques à l'app produits
+│   ├── forms.py                # Formulaires Django
+│   ├── models.py               # Modèles de données
+│   ├── views.py                # Vues Django
+│   ├── urls.py                 # Routes spécifiques à l'app produits
+│   └── tests.py                # Tests unitaires
+├── db.sqlite3                  # Base de données SQLite (générée)
+├── manage.py                   # Script de gestion du projet
+└── requirements.txt            # Liste des dépendances Python
+
 
